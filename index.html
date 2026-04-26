@@ -23,6 +23,10 @@
       line-height: 1.8;
       direction: rtl;
       -webkit-tap-highlight-color: transparent;
+      /* تحسين الأداء */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      will-change: transform;
     }
 
     #starry-canvas {
@@ -33,19 +37,24 @@
       height: 100%;
       z-index: 0;
       pointer-events: none;
+      /* تحسين أداء الكانفس */
+      will-change: transform;
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
     }
 
+    /* الصفحات */
     .page {
-      position: fixed;
+      position: absolute;
       top: 0;
       left: 0;
       width: 100%;
-      height: 100%;
+      min-height: 100vh;
       z-index: 2;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       padding: 2rem 1.5rem;
       backdrop-filter: blur(3px);
       -webkit-backdrop-filter: blur(3px);
@@ -53,8 +62,10 @@
       transform: translateX(30px);
       pointer-events: none;
       transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
+      /* تحسين الأداء */
+      will-change: transform, opacity;
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
     }
 
     .page.active {
@@ -76,9 +87,9 @@
     .container {
       max-width: 700px;
       width: 100%;
-      margin: auto;
+      margin: 0 auto;
       text-align: center;
-      padding: 2rem 0;
+      padding: 1rem 0 4rem 0;
     }
 
     .glass-card {
@@ -138,12 +149,11 @@
       border-radius: 2rem;
       white-space: pre-wrap;
       line-height: 2.2;
-      max-height: none;
-      overflow-y: visible;
       text-align: center;
       color: #ffffff;
       text-shadow: 0 0 15px #ffb6c1, 0 0 30px #ff69b4, 0 0 45px #d4af37;
       font-weight: 500;
+      word-break: break-word;
     }
 
     .timeline-item {
@@ -174,14 +184,53 @@
       z-index: 20;
     }
 
+    /* الأوراق الملونة - بطيئة */
     .confetti-piece {
       position: fixed;
       font-size: 2rem;
       z-index: 200;
       pointer-events: none;
+      will-change: transform, opacity;
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
     }
 
+    /* رسالة happy birthday مع لمعان على الجوانب */
     .birthday-message {
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: #ffffff;
+      text-shadow: 
+        0 0 10px #ffb6c1,
+        0 0 20px #ff69b4,
+        0 0 40px #d4af37,
+        0 0 60px #ff6b81,
+        -30px 0 30px #ffb6c1,
+        30px 0 30px #ff69b4,
+        -60px 0 50px #d4af37,
+        60px 0 50px #ff6b81;
+      animation: glowPulse 1.5s infinite alternate;
+      line-height: 1.3;
+      margin-bottom: 0.8rem;
+    }
+
+    .birthday-sub {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #ffffff;
+      text-shadow: 
+        0 0 10px #ffb6c1,
+        0 0 20px #ff69b4,
+        0 0 35px #d4af37,
+        -25px 0 25px #ffb6c1,
+        25px 0 25px #ff69b4;
+      animation: glowPulse 1.5s infinite alternate;
+      line-height: 1.3;
+      margin-top: 0.3rem;
+    }
+
+    /* حاوية رسالة الميلاد */
+    .birthday-container {
       position: fixed;
       top: 50%;
       left: 0;
@@ -189,42 +238,24 @@
       transform: translateY(-50%);
       z-index: 300;
       text-align: center;
-      font-size: 4.5rem;
-      font-weight: 900;
-      color: #ffffff;
-      text-shadow: 0 0 15px #ffb6c1, 0 0 30px #ff69b4, 0 0 45px #d4af37, 0 0 60px #ff6b81;
-      animation: glowPulse 1.5s infinite alternate;
       pointer-events: none;
       width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
     }
 
     @keyframes glowPulse {
-      from { text-shadow: 0 0 15px #ffb6c1, 0 0 30px #ff69b4, 0 0 45px #d4af37; }
-      to { text-shadow: 0 0 30px #ffb6c1, 0 0 60px #ff69b4, 0 0 90px #d4af37, 0 0 120px #ff6b81; }
-    }
-
-    .page-indicator {
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 50;
-      display: flex;
-      gap: 10px;
-    }
-
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.3);
-      transition: all 0.4s ease;
-    }
-
-    .dot.active {
-      background: #d4af37;
-      box-shadow: 0 0 15px #d4af37;
-      transform: scale(1.4);
+      from { 
+        text-shadow: 0 0 10px #ffb6c1, 0 0 20px #ff69b4, 0 0 40px #d4af37, 0 0 60px #ff6b81,
+        -30px 0 30px #ffb6c1, 30px 0 30px #ff69b4;
+      }
+      to { 
+        text-shadow: 0 0 30px #ffb6c1, 0 0 60px #ff69b4, 0 0 90px #d4af37, 0 0 120px #ff6b81,
+        -60px 0 60px #d4af37, 60px 0 60px #ff6b81;
+      }
     }
   </style>
 </head>
@@ -296,30 +327,24 @@
     </div>
   </div>
 
-  <!-- مؤشر الصفحات -->
-  <div class="page-indicator" id="pageIndicator">
-    <div class="dot active" data-page="1"></div>
-    <div class="dot" data-page="2"></div>
-    <div class="dot" data-page="3"></div>
-    <div class="dot" data-page="4"></div>
-    <div class="dot" data-page="5"></div>
-  </div>
-
   <script>
     (function() {
       // =====================================================================
-      // 1. الخلفية التفاعلية: نجوم + قلوب نيون تظهر وتختفي تدريجياً
+      // 1. الخلفية التفاعلية: نجوم + قلوب نيون (90 فريم مع تحسين الأداء)
       // =====================================================================
       const canvas = document.getElementById('starry-canvas');
-      const ctx = canvas.getContext('2d');
+      const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
       let w, h, stars = [], hearts = [];
+      let lastTime = 0;
+      const targetFPS = 90;
+      const frameInterval = 1000 / targetFPS;
 
       function resize() {
         w = window.innerWidth;
         h = window.innerHeight;
         canvas.width = w;
         canvas.height = h;
-        stars = Array.from({ length: Math.floor(w * 0.1) }, () => ({
+        stars = Array.from({ length: Math.floor(w * 0.08) }, () => ({
           x: Math.random() * w,
           y: Math.random() * h,
           r: Math.random() * 2 + 0.7,
@@ -359,16 +384,29 @@
         ctx.restore();
       }
 
-      function animate() {
+      function animate(currentTime) {
+        requestAnimationFrame(animate);
+
+        // تثبيت 90 فريم
+        const deltaTime = currentTime - lastTime;
+        if (deltaTime < frameInterval) return;
+        lastTime = currentTime - (deltaTime % frameInterval);
+
         ctx.clearRect(0, 0, w, h);
-        stars.forEach(s => {
+        
+        // رسم النجوم
+        for (let i = 0; i < stars.length; i++) {
+          const s = stars[i];
           ctx.beginPath();
           ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
           ctx.fillStyle = `rgba(255,240,210,${s.b})`;
           ctx.fill();
-        });
+        }
+        
+        // رسم القلوب
         const now = Date.now() / 1000;
-        hearts.forEach(h => {
+        for (let i = 0; i < hearts.length; i++) {
+          const h = hearts[i];
           const elapsed = (now % h.maxLife);
           const progress = elapsed / h.maxLife;
           let scale, alpha;
@@ -376,29 +414,20 @@
           else if (progress < 0.7) { scale = 0.7 + (progress - 0.2) * 0.6; alpha = 1; }
           else { scale = 1 - (progress - 0.7) / 0.3 * 0.5; alpha = 1 - (progress - 0.7) / 0.3; }
           drawNeonHeart(h.x, h.y, h.baseSize * scale, alpha);
-        });
-        requestAnimationFrame(animate);
+        }
       }
-      animate();
+      requestAnimationFrame(animate);
 
       // =====================================================================
       // 2. التنقل السلس بين الصفحات
       // =====================================================================
       let currentPage = 'page1';
-      const dots = document.querySelectorAll('.dot');
-
-      function updateDots(pageNum) {
-        dots.forEach(d => d.classList.remove('active'));
-        const activeDot = document.querySelector(`.dot[data-page="${pageNum}"]`);
-        if (activeDot) activeDot.classList.add('active');
-      }
 
       window.goToPage = function(targetPageId) {
         const currentEl = document.getElementById(currentPage);
         const targetEl = document.getElementById(targetPageId);
         if (!currentEl || !targetEl || currentPage === targetPageId) return;
 
-        const targetNum = targetPageId.replace('page', '');
         const currentNum = parseInt(currentPage.replace('page', ''));
         const nextNum = parseInt(targetPageId.replace('page', ''));
 
@@ -410,14 +439,13 @@
 
         targetEl.classList.remove('exit-left', 'exit-right');
         targetEl.style.display = 'flex';
-        targetEl.scrollTop = 0;
+        window.scrollTo({ top: 0, behavior: 'instant' });
 
         setTimeout(() => {
           currentEl.classList.remove('active', 'exit-left', 'exit-right');
           currentEl.style.display = 'none';
           targetEl.classList.add('active');
           currentPage = targetPageId;
-          updateDots(targetNum);
 
           if (targetPageId === 'page3') startTypewriter();
         }, 300);
@@ -437,7 +465,7 @@
       });
 
       // =====================================================================
-      // 4. الكتابة الحية - سريعة وبدون تمرير تلقائي
+      // 4. الكتابة الحية - سريعة
       // =====================================================================
       const fullMsg = `تدرين شكد أحبج؟ خليني أحجيلج، وعساها هالكلمات توصل لوسط گلبج وتستقر بي مثل الاستقرار اللي نحس بيه من نلتقي باللعب وننسى الدنيا كلها وتبوسيني بالرقصة الحلوة هاي مالتج ام القلب...🥹💗
 أحبج حب الما شافه بشر، حب حموداتج الج مو شوية، لأنه هو اللي صار يشوف الدنيا بعيونج انتِ... تدرين من تغيبين شكد تظلم الدنيا بعيني؟.. أحس الهوا يثگل بصدري واگعد ادور بكل ركن بذاكرتي عن ضحكتج، عن حروفج، عن نمنمتي اللي خذت عقلي وگلبي وسكنت بيهم😞💗 انتِ مو بس بنية حبها گلبي، أنتِ الأمان اللي جنت أدور عليه بكل سنين عمري، وانتِ ذيج الواحة اللي لگيتها بنص الدنيا وگلت هنا أرتاح وهنا أعيش وهنا أحيا.
@@ -461,15 +489,14 @@
           if (i < fullMsg.length) {
             twEl.textContent += fullMsg.charAt(i);
             i++;
-            // تم إلغاء التمرير التلقائي - بدون twEl.scrollTop
           } else {
             clearInterval(timer);
           }
-        }, 20); // سرعة أسرع: 20 مللي ثانية
+        }, 20);
       }
 
       // =====================================================================
-      // 5. مفاجأة الكيك (5 ضغطات)
+      // 5. مفاجأة الكيك - أوراق بطيئة + رسالة مع "احبچ حبيبتي" تحتها
       // =====================================================================
       const cake = document.getElementById('magicCake');
       let clicks = 0, anim = false;
@@ -499,27 +526,74 @@
           anim = true;
           anime({ targets: cake, translateX: 0, translateY: 0, scale: 1.4, duration: 400, easing: 'easeOutElastic' });
 
-          for (let i = 0; i < 40; i++) {
-            const el = document.createElement('div');
-            el.className = 'confetti-piece';
-            el.textContent = ['🎉', '🌸', '💗', '✨', '🎈', '🌟', '💖', '🎊'][Math.floor(Math.random() * 8)];
-            el.style.left = Math.random() * 100 + '%';
-            el.style.top = '-5%';
-            document.body.appendChild(el);
-            anime({ targets: el, translateY: window.innerHeight + 120, translateX: () => Math.random() * 350 - 175, rotate: 720, opacity: [1, 0], duration: 2000 + Math.random() * 1500, complete: () => el.remove() });
+          // أوراق ملونة بطيئة
+          for (let i = 0; i < 35; i++) {
+            setTimeout(() => {
+              const el = document.createElement('div');
+              el.className = 'confetti-piece';
+              el.textContent = ['🎉', '🌸', '💗', '✨', '🎈', '🌟', '💖', '🎊'][Math.floor(Math.random() * 8)];
+              el.style.left = Math.random() * 100 + '%';
+              el.style.top = '-8%';
+              document.body.appendChild(el);
+              anime({
+                targets: el,
+                translateY: window.innerHeight + 150,
+                translateX: () => Math.random() * 300 - 150,
+                rotate: () => Math.random() * 360,
+                opacity: [1, 0],
+                duration: 4000 + Math.random() * 3000,
+                easing: 'easeInQuad',
+                complete: () => el.remove()
+              });
+            }, i * 80);
           }
 
-          const msg = document.createElement('div');
-          msg.className = 'birthday-message';
-          msg.textContent = '🎂 happy birthday';
-          document.body.appendChild(msg);
-          anime({ targets: msg, scale: [0, 1.2], opacity: [0, 1], duration: 1000, easing: 'easeOutExpo' });
-          setTimeout(() => { anime({ targets: msg, opacity: 0, scale: 0.8, duration: 1000, easing: 'easeInQuad', complete: () => msg.remove() }); }, 2500);
-          setTimeout(() => { clicks = 0; anim = false; anime({ targets: cake, scale: 1, duration: 400 }); }, 3500);
+          // رسالة happy birthday + احبچ حبيبتي (تحتها)
+          setTimeout(() => {
+            const container = document.createElement('div');
+            container.className = 'birthday-container';
+            
+            const msg = document.createElement('div');
+            msg.className = 'birthday-message';
+            msg.textContent = '🎂 happy birthday 🎂';
+            
+            const sub = document.createElement('div');
+            sub.className = 'birthday-sub';
+            sub.textContent = 'احبچ حبيبتي 💗';
+            
+            container.appendChild(msg);
+            container.appendChild(sub);
+            document.body.appendChild(container);
+
+            anime({
+              targets: container,
+              scale: [0, 1.2],
+              opacity: [0, 1],
+              duration: 1200,
+              easing: 'easeOutExpo'
+            });
+
+            setTimeout(() => {
+              anime({
+                targets: container,
+                opacity: 0,
+                scale: 0.8,
+                duration: 1500,
+                easing: 'easeInQuad',
+                complete: () => container.remove()
+              });
+            }, 3000);
+          }, 600);
+
+          // إعادة تعيين
+          setTimeout(() => {
+            clicks = 0;
+            anim = false;
+            anime({ targets: cake, scale: 1, duration: 400 });
+          }, 5000);
         }
       });
 
-      updateDots('1');
     })();
   </script>
 </body>
