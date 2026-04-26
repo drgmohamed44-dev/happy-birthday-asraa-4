@@ -15,7 +15,6 @@
 
     body {
       font-family: 'Tajawal', 'Cairo', 'Amiri', sans-serif;
-      background: radial-gradient(circle at 20% 10%, #1a0b1c, #0a020f);
       color: #fce4ec;
       overflow-x: hidden;
       position: relative;
@@ -23,24 +22,63 @@
       line-height: 1.8;
       direction: rtl;
       -webkit-tap-highlight-color: transparent;
-      /* تحسين الأداء */
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      will-change: transform;
-    }
-
-    #starry-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
-      /* تحسين أداء الكانفس */
-      will-change: transform;
-      transform: translateZ(0);
-      -webkit-transform: translateZ(0);
+      /* خلفية ثابتة بدل Canvas */
+      background-color: #0a020f;
+      background-image: 
+        /* نجوم صغيرة */
+        radial-gradient(1px 1px at 10% 15%, rgba(255,240,210,0.8), transparent),
+        radial-gradient(1px 1px at 20% 25%, rgba(255,240,210,0.6), transparent),
+        radial-gradient(1.5px 1.5px at 30% 10%, rgba(255,240,210,0.9), transparent),
+        radial-gradient(1px 1px at 40% 30%, rgba(255,240,210,0.5), transparent),
+        radial-gradient(1.5px 1.5px at 50% 5%, rgba(255,240,210,0.7), transparent),
+        radial-gradient(1px 1px at 60% 20%, rgba(255,240,210,0.8), transparent),
+        radial-gradient(1px 1px at 70% 35%, rgba(255,240,210,0.6), transparent),
+        radial-gradient(1.5px 1.5px at 80% 15%, rgba(255,240,210,0.9), transparent),
+        radial-gradient(1px 1px at 90% 25%, rgba(255,240,210,0.5), transparent),
+        radial-gradient(1px 1px at 15% 45%, rgba(255,240,210,0.7), transparent),
+        radial-gradient(1.5px 1.5px at 25% 55%, rgba(255,240,210,0.8), transparent),
+        radial-gradient(1px 1px at 35% 40%, rgba(255,240,210,0.6), transparent),
+        radial-gradient(1px 1px at 45% 50%, rgba(255,240,210,0.9), transparent),
+        radial-gradient(1.5px 1.5px at 55% 45%, rgba(255,240,210,0.5), transparent),
+        radial-gradient(1px 1px at 65% 55%, rgba(255,240,210,0.7), transparent),
+        radial-gradient(1px 1px at 75% 40%, rgba(255,240,210,0.8), transparent),
+        radial-gradient(1.5px 1.5px at 85% 50%, rgba(255,240,210,0.6), transparent),
+        radial-gradient(1px 1px at 95% 45%, rgba(255,240,210,0.9), transparent),
+        radial-gradient(1px 1px at 5% 65%, rgba(255,240,210,0.5), transparent),
+        radial-gradient(1.5px 1.5px at 12% 75%, rgba(255,240,210,0.7), transparent),
+        /* نجوم متوسطة */
+        radial-gradient(2px 2px at 18% 70%, rgba(255,240,210,0.8), transparent),
+        radial-gradient(2px 2px at 28% 65%, rgba(255,240,210,0.6), transparent),
+        radial-gradient(2px 2px at 38% 75%, rgba(255,240,210,0.9), transparent),
+        radial-gradient(2px 2px at 48% 60%, rgba(255,240,210,0.5), transparent),
+        radial-gradient(2px 2px at 58% 70%, rgba(255,240,210,0.7), transparent),
+        radial-gradient(2px 2px at 68% 65%, rgba(255,240,210,0.8), transparent),
+        radial-gradient(2px 2px at 78% 75%, rgba(255,240,210,0.6), transparent),
+        radial-gradient(2px 2px at 88% 60%, rgba(255,240,210,0.9), transparent),
+        radial-gradient(2px 2px at 8% 85%, rgba(255,240,210,0.5), transparent),
+        radial-gradient(2px 2px at 22% 90%, rgba(255,240,210,0.7), transparent),
+        /* نجوم أكبر */
+        radial-gradient(2.5px 2.5px at 42% 85%, rgba(255,240,210,0.8), transparent),
+        radial-gradient(2.5px 2.5px at 62% 82%, rgba(255,240,210,0.6), transparent),
+        radial-gradient(2.5px 2.5px at 82% 88%, rgba(255,240,210,0.7), transparent),
+        radial-gradient(2.5px 2.5px at 52% 92%, rgba(255,240,210,0.5), transparent),
+        /* تدرج بنفسجي */
+        radial-gradient(circle at 20% 10%, rgba(120, 40, 90, 0.3) 0%, transparent 60%),
+        radial-gradient(circle at 80% 20%, rgba(60, 20, 60, 0.3) 0%, transparent 60%),
+        radial-gradient(circle at 50% 50%, rgba(30, 10, 40, 0.4) 0%, transparent 70%),
+        /* قلوب صغيرة متفرقة */
+        radial-gradient(circle at 15% 20%, transparent 40%, rgba(255,182,193,0.15) 41%, transparent 42%),
+        radial-gradient(circle at 75% 30%, transparent 40%, rgba(255,182,193,0.12) 41%, transparent 42%),
+        radial-gradient(circle at 35% 60%, transparent 40%, rgba(255,182,193,0.15) 41%, transparent 42%),
+        radial-gradient(circle at 65% 70%, transparent 40%, rgba(255,182,193,0.12) 41%, transparent 42%),
+        radial-gradient(circle at 85% 55%, transparent 40%, rgba(255,182,193,0.15) 41%, transparent 42%),
+        radial-gradient(circle at 25% 80%, transparent 40%, rgba(255,182,193,0.12) 41%, transparent 42%);
+      background-size: 100% 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
     }
 
     /* الصفحات */
@@ -56,13 +94,10 @@
       align-items: center;
       justify-content: flex-start;
       padding: 2rem 1.5rem;
-      backdrop-filter: blur(3px);
-      -webkit-backdrop-filter: blur(3px);
       opacity: 0;
       transform: translateX(30px);
       pointer-events: none;
       transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      /* تحسين الأداء */
       will-change: transform, opacity;
       transform: translateZ(0);
       -webkit-transform: translateZ(0);
@@ -184,7 +219,6 @@
       z-index: 20;
     }
 
-    /* الأوراق الملونة - بطيئة */
     .confetti-piece {
       position: fixed;
       font-size: 2rem;
@@ -195,7 +229,6 @@
       -webkit-transform: translateZ(0);
     }
 
-    /* رسالة happy birthday مع لمعان على الجوانب */
     .birthday-message {
       font-size: 3.5rem;
       font-weight: 900;
@@ -229,7 +262,6 @@
       margin-top: 0.3rem;
     }
 
-    /* حاوية رسالة الميلاد */
     .birthday-container {
       position: fixed;
       top: 50%;
@@ -260,7 +292,6 @@
   </style>
 </head>
 <body>
-  <canvas id="starry-canvas"></canvas>
 
   <!-- صفحة 1: المعايدة -->
   <div id="page1" class="page active">
@@ -330,96 +361,7 @@
   <script>
     (function() {
       // =====================================================================
-      // 1. الخلفية التفاعلية: نجوم + قلوب نيون (90 فريم مع تحسين الأداء)
-      // =====================================================================
-      const canvas = document.getElementById('starry-canvas');
-      const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
-      let w, h, stars = [], hearts = [];
-      let lastTime = 0;
-      const targetFPS = 90;
-      const frameInterval = 1000 / targetFPS;
-
-      function resize() {
-        w = window.innerWidth;
-        h = window.innerHeight;
-        canvas.width = w;
-        canvas.height = h;
-        stars = Array.from({ length: Math.floor(w * 0.08) }, () => ({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          r: Math.random() * 2 + 0.7,
-          b: Math.random() * 0.5 + 0.4
-        }));
-      }
-      window.addEventListener('resize', resize);
-      resize();
-
-      function spawnHeart() {
-        const heart = {
-          x: Math.random() * w * 0.9 + 30,
-          y: Math.random() * h * 0.8 + 30,
-          baseSize: Math.random() * 16 + 12,
-          life: 0,
-          maxLife: 1.4,
-        };
-        hearts.push(heart);
-        setTimeout(() => { hearts = hearts.filter(h => h !== heart); }, heart.maxLife * 1000);
-      }
-      setInterval(spawnHeart, 500);
-
-      function drawNeonHeart(x, y, size, alpha) {
-        ctx.save();
-        ctx.translate(x, y);
-        ctx.globalAlpha = alpha;
-        ctx.beginPath();
-        const s = size * 0.45;
-        ctx.moveTo(0, s * 0.3);
-        ctx.bezierCurveTo(-s, -s * 0.4, -s, s * 0.8, 0, s * 1.3);
-        ctx.bezierCurveTo(s, s * 0.8, s, -s * 0.4, 0, s * 0.3);
-        ctx.strokeStyle = '#f9e076';
-        ctx.lineWidth = 1.6;
-        ctx.shadowColor = '#fbbf24';
-        ctx.shadowBlur = 12;
-        ctx.stroke();
-        ctx.restore();
-      }
-
-      function animate(currentTime) {
-        requestAnimationFrame(animate);
-
-        // تثبيت 90 فريم
-        const deltaTime = currentTime - lastTime;
-        if (deltaTime < frameInterval) return;
-        lastTime = currentTime - (deltaTime % frameInterval);
-
-        ctx.clearRect(0, 0, w, h);
-        
-        // رسم النجوم
-        for (let i = 0; i < stars.length; i++) {
-          const s = stars[i];
-          ctx.beginPath();
-          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(255,240,210,${s.b})`;
-          ctx.fill();
-        }
-        
-        // رسم القلوب
-        const now = Date.now() / 1000;
-        for (let i = 0; i < hearts.length; i++) {
-          const h = hearts[i];
-          const elapsed = (now % h.maxLife);
-          const progress = elapsed / h.maxLife;
-          let scale, alpha;
-          if (progress < 0.2) { scale = progress / 0.2 * 0.7; alpha = progress / 0.2; }
-          else if (progress < 0.7) { scale = 0.7 + (progress - 0.2) * 0.6; alpha = 1; }
-          else { scale = 1 - (progress - 0.7) / 0.3 * 0.5; alpha = 1 - (progress - 0.7) / 0.3; }
-          drawNeonHeart(h.x, h.y, h.baseSize * scale, alpha);
-        }
-      }
-      requestAnimationFrame(animate);
-
-      // =====================================================================
-      // 2. التنقل السلس بين الصفحات
+      // 1. التنقل السلس بين الصفحات
       // =====================================================================
       let currentPage = 'page1';
 
@@ -452,7 +394,7 @@
       };
 
       // =====================================================================
-      // 3. صندوق الرسائل المخفية
+      // 2. صندوق الرسائل المخفية
       // =====================================================================
       document.getElementById('revealMessageBtn').addEventListener('click', function() {
         const msg = document.getElementById('hiddenMessage');
@@ -465,7 +407,7 @@
       });
 
       // =====================================================================
-      // 4. الكتابة الحية - سريعة
+      // 3. الكتابة الحية - سريعة
       // =====================================================================
       const fullMsg = `تدرين شكد أحبج؟ خليني أحجيلج، وعساها هالكلمات توصل لوسط گلبج وتستقر بي مثل الاستقرار اللي نحس بيه من نلتقي باللعب وننسى الدنيا كلها وتبوسيني بالرقصة الحلوة هاي مالتج ام القلب...🥹💗
 أحبج حب الما شافه بشر، حب حموداتج الج مو شوية، لأنه هو اللي صار يشوف الدنيا بعيونج انتِ... تدرين من تغيبين شكد تظلم الدنيا بعيني؟.. أحس الهوا يثگل بصدري واگعد ادور بكل ركن بذاكرتي عن ضحكتج، عن حروفج، عن نمنمتي اللي خذت عقلي وگلبي وسكنت بيهم😞💗 انتِ مو بس بنية حبها گلبي، أنتِ الأمان اللي جنت أدور عليه بكل سنين عمري، وانتِ ذيج الواحة اللي لگيتها بنص الدنيا وگلت هنا أرتاح وهنا أعيش وهنا أحيا.
@@ -496,7 +438,7 @@
       }
 
       // =====================================================================
-      // 5. مفاجأة الكيك - أوراق بطيئة + رسالة مع "احبچ حبيبتي" تحتها
+      // 4. مفاجأة الكيك - أوراق بطيئة + رسالة مع "احبچ حبيبتي" تحتها
       // =====================================================================
       const cake = document.getElementById('magicCake');
       let clicks = 0, anim = false;
