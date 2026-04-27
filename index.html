@@ -146,7 +146,6 @@
 
     .nav-btn:active { transform: scale(0.95); }
 
-    /* النص الكامل يظهر مرة وحدة */
     .full-message {
       font-size: 1.15rem;
       background: rgba(0,0,0,0.4);
@@ -174,20 +173,33 @@
     }
     .heart-icon { font-size: 2.2rem; }
 
-    .cake-button {
-      background: radial-gradient(circle at 30% 30%, #fdd835, #b71c1c);
+    /* زر القلب 💞 */
+    .heart-btn {
+      background: radial-gradient(circle at 30% 30%, #ff6b81, #b71c1c);
       border: none;
-      font-size: 3.8rem;
+      font-size: 4rem;
       border-radius: 50%;
-      width: 110px; height: 110px;
+      width: 120px; height: 120px;
       cursor: pointer;
-      box-shadow: 0 0 45px #ffab00;
+      box-shadow: 0 0 50px #ff4d6d, 0 0 80px rgba(255,105,180,0.6);
       touch-action: manipulation;
       transition: 0.2s;
       position: relative;
       z-index: 20;
+      animation: heartGlow 2s infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
+    @keyframes heartGlow {
+      0%,100% { box-shadow: 0 0 50px #ff4d6d, 0 0 80px rgba(255,105,180,0.6); }
+      50% { box-shadow: 0 0 70px #ff6b81, 0 0 110px rgba(255,105,180,0.9); }
+    }
+
+    .heart-btn:active { transform: scale(0.9); }
+
+    /* الأوراق الملونة */
     .confetti-piece {
       position: fixed;
       font-size: 2rem;
@@ -198,48 +210,46 @@
       -webkit-transform: translateZ(0);
     }
 
-    .birthday-message {
-      font-size: 3.5rem;
-      font-weight: 900;
-      color: #ffffff;
-      text-shadow: 0 0 10px #ffb6c1, 0 0 20px #ff69b4, 0 0 40px #d4af37, 0 0 60px #ff6b81,
-        -30px 0 30px #ffb6c1, 30px 0 30px #ff69b4, -60px 0 50px #d4af37, 60px 0 50px #ff6b81;
-      animation: glowPulse 1.5s infinite alternate;
-      line-height: 1.3;
-      margin-bottom: 0.8rem;
-    }
-
-    .birthday-sub {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: #ffffff;
-      text-shadow: 0 0 10px #ffb6c1, 0 0 20px #ff69b4, 0 0 35px #d4af37,
-        -25px 0 25px #ffb6c1, 25px 0 25px #ff69b4;
-      animation: glowPulse 1.5s infinite alternate;
-      line-height: 1.3;
-      margin-top: 0.3rem;
-    }
-
-    .birthday-container {
+    /* البوكس البنفسجي */
+    .secret-box-overlay {
       position: fixed;
-      top: 50%; left: 0; right: 0;
-      transform: translateY(-50%);
-      z-index: 300;
-      text-align: center;
-      pointer-events: none;
-      width: 100%;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 400;
+      background: rgba(0,0,0,0.7);
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
+      pointer-events: none;
+      opacity: 0;
     }
 
-    @keyframes glowPulse {
-      from { text-shadow: 0 0 10px #ffb6c1, 0 0 20px #ff69b4, 0 0 40px #d4af37, 0 0 60px #ff6b81,
-        -30px 0 30px #ffb6c1, 30px 0 30px #ff69b4; }
-      to { text-shadow: 0 0 30px #ffb6c1, 0 0 60px #ff69b4, 0 0 90px #d4af37, 0 0 120px #ff6b81,
-        -60px 0 60px #d4af37, 60px 0 60px #ff6b81; }
+    .secret-box {
+      background: linear-gradient(145deg, #1a0a2e, #0d0520);
+      border: 3px solid #c44569;
+      outline: 2px solid rgba(212,175,55,0.5);
+      outline-offset: 4px;
+      border-radius: 2rem;
+      padding: 2rem 1.5rem;
+      max-width: 650px;
+      width: 90%;
+      max-height: 70vh;
+      overflow-y: auto;
+      text-align: center;
+      color: #ffffff;
+      font-size: 1.1rem;
+      line-height: 2;
+      text-shadow: 0 0 10px #ffb6c1;
+      box-shadow: 0 0 60px rgba(196,69,105,0.5), 0 0 100px rgba(212,175,55,0.2);
+      transform: scale(0);
+    }
+
+    .secret-box h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #ff9a9e, #d4af37);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
   </style>
 </head>
@@ -273,7 +283,7 @@
     </div>
   </div>
 
-  <!-- صفحة 3: الرسالة الكبرى كاملة مرة وحدة -->
+  <!-- صفحة 3: الرسالة الكبرى كاملة -->
   <div id="page3" class="page">
     <div class="container">
       <div class="glass-card">
@@ -289,11 +299,11 @@
 أحبج حب ‏يتخطى كل التوقعات، حب يكبر ويا كل نفس أتنفسه🥹💗🌸 انتِ أغلى من الماس وأغلى من كل كنوز الأرض. وجودج بحياتي هو أكبر نعمة، وإني ممتن لربي كل يوم لأنه رزقني بيج🥹💗 أحبج يا ملكة قلبي، وأحبج يا أميرة حياتي🤭💗
 أريد أگلج إن باقر راح يبقى دوم المخلص الج، وراح يبقى دوم المحب اللي ما يمل منج أبداً. أنتِ الأمل اللي يخليني أستمر، وأنتِ القوة اللي تخليني أواجه كل شي بابتسامة. أحبج نمنمتي وأحبج يا إسرائي و عمري انتِ وأحبج يا كل دنيتي و كل عام و انتِ بما لا نهاية من الخير و السعادة 🥹💗🌸. 💗4/28💗</div>
       </div>
-      <button class="nav-btn" onclick="goToPage('page4')">🥹🌸 الوعود والكيك</button>
+      <button class="nav-btn" onclick="goToPage('page4')">🥹🌸 الوعود والمفاجأة</button>
     </div>
   </div>
 
-  <!-- صفحة 4: الوعود المستقبلية -->
+  <!-- صفحة 4: الوعود + زر القلب -->
   <div id="page4" class="page">
     <div class="container">
       <div class="glass-card">
@@ -305,17 +315,19 @@
           💍 اوعدج أنُ من بعد هاي السنتين اللي هي 2026 و 2027 راح يصير شي كلش كلش كلش تحبيه و يعني هواي اشياء ان شاء الله حتصير و راح اخططلها بالتفصيل و اشاركج كل شي و اطلب رأيج الحلو هم و ابوسج و اگلج احبج حبيبتي 🥹🌸💗
         </p>
       </div>
-      <button class="nav-btn" onclick="goToPage('page5')">🎂 اضغطي على الكيك</button>
+      <!-- زر القلب -->
+      <div style="position: relative; width: 100%; min-height: 30vh; display: flex; align-items: center; justify-content: center; margin: 2rem 0;">
+        <button id="magicHeart" class="heart-btn">💞</button>
+      </div>
+      <p style="color:#f8bbd0; margin-top:0.5rem;">اضغطي على القلب 5 مرات 💞</p>
     </div>
   </div>
 
-  <!-- صفحة 5: الكيك فقط -->
-  <div id="page5" class="page">
-    <div class="container">
-      <div style="position: relative; width: 100%; min-height: 70vh; display: flex; align-items: center; justify-content: center;">
-        <button id="magicCake" class="cake-button">🎂</button>
-      </div>
-      <p style="color:#f8bbd0; margin-top:0.8rem;">اضغطي 5 مرات 🎂</p>
+  <!-- اوفرلاي البوكس البنفسجي -->
+  <div id="secretOverlay" class="secret-box-overlay">
+    <div id="secretBox" class="secret-box">
+      <h3>💞 رسالة خاصة 💞</h3>
+      <p>تزعلج الدنيا ؟ تعالي يمي ، يزعلج العالم ؟ تعالي يمي ، يزعلوج الناس ؟ تعالي يمي ، بكل مرة تشكريني و تكليلي شكراً ميمي لوجودك بحياتي و اني بدونك ما اكدر ، ف هاي كلمتج بمجرد انج تكوليها هي فرحة جبيرة لگلبي و فرحة ماكو منها بكل الدنيا و ريت لو دوم اسمعها ، حب كبير مني الج حبيبتي لأني احبج و اريد اخليج بوسط روحي و بوسط گلبي وووو حبيت اهديلج هالكلام البسيط و والله يعني مو شغلة بسيط او هاي تؤتؤ هو بصراحة طالع من كل گلبي و روحي و مفكر بيه حرف حرف بسس يعني حبيت افرحج بكلامي و بحبي الج و اظهر لج عشقي الج و فرحتي بعيد ميلادج و كونج صرتي 18 سنة شكد شي حلو ، ف اسرائي حبيبتي انتِ تدرين بية شكد احبج و شكد اهتم بيج ف هديتلج هالهدية الرقمية و الهدية اللي هي الكترونية بالكامل لأن ماكدر اهديلج هدية ملموسة او فد شي و ياريت لو اكدر جان هديتلج اشياء حلوة تحبيها و الج هدية ثانية هم ان شاء الله بحيل الله بزواجنا اهديلجياهن هدايا مال كل سنة عرفنا بيها بعض 💞 . اتمنى من عيونج الحلوة تبقى تشوفني و تباوعلي دوم و تشوف كلماتي و حبي و حرصي الج و عشقي الج و اتمنى ان دوم عيونج الحلوة تحجيلي وتسولفلي اللي بيها لأن والله اللي دا اشوفه بيج مو هيّن وداعة عيونج و يمكن راح اكثّر بالكلام ولكن يا گلبي اني دا اشوفج شكد تتعبين و شكد تحسين بمشاعر صعبة بحياتج ف حباً مني الج و عشقاً مني الج اني اهديلج شي ريته يفرحج و يطيب خاطرج من كل شي تعبج بهاي الدنيا و اوعدج انُ اكو هواااي اشياء حلوة حيل راح تصير و نسويها سوة باذن الله سبحانه و تعالى و نعيش حياة ثانية و جديدة كلّياً عن حياتنا الي دنعيشها حالياً 🥹🫂💗 ووو احب اذكرج بشي 😞🫂💗 . ميمي يمج💗🦋، حموداتج يمج💗🦋،محمدج يمج💗🦋، للأبد يمج حمودي 🥹🫂💗 ما راح اعوفج لوحدج طول ما انا عايش 🌸💕🦋 اني الج و انتِ الي و ها خلي اكلج شغلة 🙈🌸💍 ، خلشوف ياهو يوصل لج وعلي اكسر ايده و رجله افا ولكم هاي اسرائي هاي اليييي شنو تاخذوها مني ولكم انا اخذها بايدي و بروحي ولكم ياهو اليمد ايده وعلي املخه 😞🫂💗 هاي حبيبتييي هاييي الي اني و بس 🥹💗 ، كل عام و انتِ بمليااررر خير حبيبتي و اريدج تفرحين حيل بهاليوم بداعتي بداعتي بداعتي 😞💗💞 .</p>
     </div>
   </div>
 
@@ -366,12 +378,14 @@
       });
 
       // =====================================================================
-      // 3. مفاجأة الكيك - أوراق بطيئة + رسالة مع "احبچ حبيبتي" تحتها
+      // 3. زر القلب 💞 - 5 ضغطات يطلع البوكس البنفسجي
       // =====================================================================
-      const cake = document.getElementById('magicCake');
+      const heart = document.getElementById('magicHeart');
+      const overlay = document.getElementById('secretOverlay');
+      const secretBox = document.getElementById('secretBox');
       let clicks = 0, anim = false;
 
-      cake.addEventListener('click', () => {
+      heart.addEventListener('click', () => {
         if (anim) return;
         clicks++;
 
@@ -385,18 +399,18 @@
           else if (clicks === 2) { targetX = Math.random() * maxX; targetY = Math.random() * maxY * 0.5; }
           else if (clicks === 3) { targetX = -Math.random() * maxX * 0.7; targetY = Math.random() * maxY; }
           else if (clicks === 4) {
-            anime({ targets: cake, translateX: 0, translateY: 0, scale: 1.3, duration: 500, easing: 'easeOutElastic(1, .5)', complete: () => { anim = false; } });
+            anime({ targets: heart, translateX: 0, translateY: 0, scale: 1.3, duration: 500, easing: 'easeOutElastic(1, .5)', complete: () => { anim = false; } });
             return;
           }
 
-          anime({ targets: cake, translateX: targetX, translateY: targetY, scale: 0.9, duration: 450, easing: 'easeOutBack', complete: () => { anim = false; } });
+          anime({ targets: heart, translateX: targetX, translateY: targetY, scale: 0.9, duration: 450, easing: 'easeOutBack', complete: () => { anim = false; } });
         }
 
         if (clicks === 5) {
           anim = true;
-          anime({ targets: cake, translateX: 0, translateY: 0, scale: 1.4, duration: 400, easing: 'easeOutElastic' });
+          anime({ targets: heart, translateX: 0, translateY: 0, scale: 1.3, duration: 400, easing: 'easeOutElastic' });
 
-          // أوراق ملونة بطيئة
+          // أوراق ملونة
           for (let i = 0; i < 35; i++) {
             setTimeout(() => {
               const el = document.createElement('div');
@@ -418,49 +432,40 @@
             }, i * 80);
           }
 
-          // رسالة happy birthday + احبچ حبيبتي (تحتها)
+          // إظهار البوكس البنفسجي
           setTimeout(() => {
-            const container = document.createElement('div');
-            container.className = 'birthday-container';
-            
-            const msg = document.createElement('div');
-            msg.className = 'birthday-message';
-            msg.textContent = '🎂 happy birthday 🎂';
-            
-            const sub = document.createElement('div');
-            sub.className = 'birthday-sub';
-            sub.textContent = 'احبچ حبيبتي 💗';
-            
-            container.appendChild(msg);
-            container.appendChild(sub);
-            document.body.appendChild(container);
-
+            overlay.style.opacity = '1';
+            overlay.style.pointerEvents = 'auto';
             anime({
-              targets: container,
-              scale: [0, 1.2],
-              opacity: [0, 1],
-              duration: 1200,
-              easing: 'easeOutExpo'
+              targets: secretBox,
+              scale: [0, 1],
+              duration: 800,
+              easing: 'easeOutBack'
             });
-
-            setTimeout(() => {
-              anime({
-                targets: container,
-                opacity: 0,
-                scale: 0.8,
-                duration: 1500,
-                easing: 'easeInQuad',
-                complete: () => container.remove()
-              });
-            }, 3000);
-          }, 600);
+          }, 500);
 
           // إعادة تعيين
           setTimeout(() => {
             clicks = 0;
             anim = false;
-            anime({ targets: cake, scale: 1, duration: 400 });
-          }, 5000);
+            anime({ targets: heart, scale: 1, duration: 400 });
+          }, 4000);
+        }
+      });
+
+      // إغلاق البوكس عند الضغط خارجه
+      overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) {
+          anime({
+            targets: secretBox,
+            scale: [1, 0],
+            duration: 400,
+            easing: 'easeInBack',
+            complete: () => {
+              overlay.style.opacity = '0';
+              overlay.style.pointerEvents = 'none';
+            }
+          });
         }
       });
 
